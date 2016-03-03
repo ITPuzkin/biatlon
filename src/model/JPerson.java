@@ -16,7 +16,6 @@ public class JPerson {
     private int pMinute;
     private int pSeconds;
 
-
     public JPerson(String n, String s, String t,int y, int num){
         pName = n;
         pSurName = s;
@@ -25,13 +24,22 @@ public class JPerson {
         pNumber = num;
     }
 
+    public JGroup getpGroup() {
+        return pGroup;
+    }
+
+    public void setpGroup(JGroup pGroup) {
+        this.pGroup = pGroup;
+    }
+
     public Object[] getObject(){
         Object[] ans = new Object[5];
-        ans[0] = pName;
-        ans[1]=pSurName;
+        ans[1] = pName;
+        ans[0]=pSurName;
         ans[2]=pTown;
-        ans[3]=pYear;
-        ans[4]=pNumber;
+        ans[4]=pYear;
+        ans[3]=pNumber;
+
         return ans;
     }
 

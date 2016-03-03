@@ -25,6 +25,11 @@ public class JTableModel extends AbstractTableModel{
     }
 
     @Override
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
+    @Override
     public int getRowCount() {
         return listData.size();
     }

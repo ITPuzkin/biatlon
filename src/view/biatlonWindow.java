@@ -4,16 +4,20 @@ import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.button.WebButton;
 import model.JGroup;
 import model.JPerson;
+import model.JTableModel;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
+import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by eroshin on 03.03.2016.
@@ -35,7 +39,19 @@ public class biatlonWindow {
     private HashMap<String, JGroup> groups;
     private HashMap<Integer, JPerson> particiants;
 
+
+    public HashMap<String,JTable> tables;
+    public HashMap<String,JTableModel> tmodels;
+
+    public String[] params = {"Фаилия",
+            "Имя",
+            "Город",
+            "Номер",
+            "Год",};
+
     public biatlonWindow(){
+        tables = new HashMap<>();
+        tmodels = new HashMap<>();
         local = this;
         groups = new HashMap<>();
         particiants = new HashMap<>();
@@ -54,9 +70,11 @@ public class biatlonWindow {
         buttonAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //addPerson();
+                addPerson(Integer.valueOf(textYear.getText()),textName.getText(),
+                        textSurName.getText(),textTown.getText(),Integer.valueOf(textNumber.getText()));
             }
         });
+
     }
 
     public void addPerson(int year,
@@ -65,9 +83,26 @@ public class biatlonWindow {
                           String town,
                           int number){
         JPerson p = new JPerson(name,surName,town,year,number);
+        for(Map.Entry<String,JGroup> entry : groups.entrySet()){
+            if(p.getpYear() >= entry.getValue().getlYear() && p.getpYear() <= entry.getValue().gethYear()){
+                p.setpGroup(entry.getValue());
+                break;
+            }
+        }
         particiants.put(p.getpNumber(),p);
+        tmodels.get(p.getpGroup().getgName()).addData(p);
+        tables.get(p.getpGroup().getgName()).revalidate();
+        tables.get(p.getpGroup().getgName()).updateUI();
+        clearInputs();
     }
 
+    public void clearInputs(){
+        textNumber.setText("");
+        textName.setText("");
+        textSurName.setText("");
+        textTown.setText("");
+        textYear.setText("");
+    }
 
     public void addGroup(JGroup g){
         groups.put(g.getgName(),g);
@@ -83,10 +118,14 @@ public class biatlonWindow {
     public void addTab(String n){
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout());
-        JTable table = new JTable();
+        JTableModel model = new JTableModel(n,params);
+        tmodels.put(n,model);
+        JTable table = new JTable(model);
+        table.setAutoCreateRowSorter(true);
         JScrollPane sPane = new JScrollPane(table);
         sPane.setSize(panel.getSize());
         table.setFillsViewportHeight(true);
+        tables.put(n,table);
         panel.add(sPane);
         tabbedPane1.addTab(n,panel);
     }
