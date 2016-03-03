@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="biatlon:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/biatlon_jar</output-path>
+    <output-path>$USER_HOME$/Desktop/biatlon.jar</output-path>
     <root id="archive" name="biatlon.jar">
       <element id="module-output" name="biatlon" />
       <element id="extracted-dir" path="$PROJECT_DIR$/weblaf-complete-1.28.jar" path-in-jar="/" />

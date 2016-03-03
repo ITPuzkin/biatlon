@@ -1,23 +1,14 @@
 package view;
 
 import com.alee.laf.WebLookAndFeel;
-import com.alee.laf.button.WebButton;
 import model.JGroup;
 import model.JPerson;
 import model.JTableModel;
 
 import javax.swing.*;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableColumn;
-import javax.swing.text.MaskFormatter;
-import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
