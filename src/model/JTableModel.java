@@ -11,7 +11,6 @@ public class JTableModel extends AbstractTableModel{
 
     public String modelName;
     public String[] columnNames;
-    public Object[][] data;
     public ArrayList<Object[]> listData;
 
     public JTableModel(String n,String[] cArr){
@@ -51,10 +50,14 @@ public class JTableModel extends AbstractTableModel{
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        if (col < getColumnCount()-2)
+        if (col < getColumnCount()-1)
             return false;
         else
             return true;
     }
 
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        listData.get(rowIndex)[5]=aValue.toString();
+    }
 }

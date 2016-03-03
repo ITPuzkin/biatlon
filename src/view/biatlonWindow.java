@@ -7,6 +7,8 @@ import model.JPerson;
 import model.JTableModel;
 
 import javax.swing.*;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
@@ -47,7 +49,8 @@ public class biatlonWindow {
             "Имя",
             "Город",
             "Номер",
-            "Год",};
+            "Год",
+            "Время",};
 
     public biatlonWindow(){
         tables = new HashMap<>();
@@ -83,11 +86,17 @@ public class biatlonWindow {
                           String town,
                           int number){
         JPerson p = new JPerson(name,surName,town,year,number);
+        boolean flag = false;
         for(Map.Entry<String,JGroup> entry : groups.entrySet()){
             if(p.getpYear() >= entry.getValue().getlYear() && p.getpYear() <= entry.getValue().gethYear()){
                 p.setpGroup(entry.getValue());
+                flag = true;
                 break;
             }
+        }
+        if(!flag){
+            JOptionPane.showMessageDialog(null, "Нет подходящей группы!\nПроверьте год рождения или создайте новую группу", "Ошибка", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
         particiants.put(p.getpNumber(),p);
         tmodels.get(p.getpGroup().getgName()).addData(p);
@@ -120,8 +129,10 @@ public class biatlonWindow {
         panel.setLayout(new GridLayout());
         JTableModel model = new JTableModel(n,params);
         tmodels.put(n,model);
+
         JTable table = new JTable(model);
         table.setAutoCreateRowSorter(true);
+
         JScrollPane sPane = new JScrollPane(table);
         sPane.setSize(panel.getSize());
         table.setFillsViewportHeight(true);

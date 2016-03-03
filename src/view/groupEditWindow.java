@@ -18,6 +18,7 @@ public class groupEditWindow {
     private JTextField textField3;
     private JButton buttonAdd;
     public JPanel panelGroupEdit;
+    private JButton buttonCansel;
 
     public groupEditWindow(biatlonWindow w,JFrame fr) {
         bW = w;
@@ -26,6 +27,13 @@ public class groupEditWindow {
             public void actionPerformed(ActionEvent e) {
                 JGroup gr = new JGroup(textField1.getText(),Integer.valueOf(textField2.getText()),Integer.valueOf(textField3.getText()));
                 bW.addGroup(gr);
+                biatlonWindow.localFrame.setVisible(true);
+                fr.dispose();
+            }
+        });
+        buttonCansel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 biatlonWindow.localFrame.setVisible(true);
                 fr.dispose();
             }

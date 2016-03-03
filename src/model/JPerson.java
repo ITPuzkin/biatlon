@@ -33,13 +33,13 @@ public class JPerson {
     }
 
     public Object[] getObject(){
-        Object[] ans = new Object[5];
+        Object[] ans = new Object[6];
         ans[1] = pName;
         ans[0]=pSurName;
         ans[2]=pTown;
         ans[4]=pYear;
         ans[3]=pNumber;
-
+        ans[5]="";
         return ans;
     }
 
